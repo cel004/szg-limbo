@@ -10,7 +10,6 @@ html, body {
 }
 
 body {
-    background-color: #ffffff;
     color: #434343;
     font-family: 'Terminal', monospace;
     margin: 0;
@@ -36,15 +35,6 @@ h1 {
     text-align: center;
 }
 
-#randomImage {
-    width: 250px;
-    height: auto;
-}
-
-#PopUp {
-    width: 300px;
-    height: auto;
-}
 
 mark {
     background-color: #06fc07;
@@ -67,12 +57,3 @@ header {
     color: #434343;
 }
 
-.cursor {
-    animation: blink 1s step-start infinite;
-}
-
-@keyframes blink {
-    50% {
-        opacity: 0;
-    }
-}
