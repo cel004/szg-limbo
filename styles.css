@@ -17,7 +17,7 @@ body {
     min-height: 100vh;
 
     color: #000000;
-    font-family: 'Times New Roman', serif;
+    font-family: 'Times New Roman', Times;
     margin: 0;
     padding: 20px;    
 }
@@ -37,7 +37,7 @@ header {
 
 h1 {
     color: #000000;
-    font-family: 'Times New Roman', serif;
+    font-family: 'Times New Roman', Times;
     font-weight: 600;
     text-align: center;
 
@@ -90,10 +90,11 @@ li {
 }
 
 button {
-    font-family: 'Times New Roman', serif;
+    font-family: 'Times New Roman', Times;
     color: #0000ff;
     font-weight: 600;
     text-decoration: underline;
+    border: 1px solid #000000;
 }
 
 .container {
@@ -113,7 +114,7 @@ button {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 2px solid #000000;
+    border: 1px solid #000000;
     padding: 0.2rem 0.8rem;
     overflow: hidden;
     border-bottom: none;
@@ -136,7 +137,7 @@ button {
 .aquarium-container {
     padding: 0.8rem 0.6rem;
     background-color: #ffffff;
-    border: 2px solid #000000;
+    border: 1px solid #000000;
     align-items: flex-start;
 }
 
@@ -189,4 +190,58 @@ button {
     margin-top: 0.4rem;
 }
 
+.ticket-width {
+    width: 524px;
+    box-sizing: border-box;
+}
 
+.username-form {
+    display: flex;
+    align-items: center;
+    border: 1px solid #000000;
+}
+
+.username-form label {
+    background-color: yellow;
+    padding: 0.4rem 0.8rem;
+    font-weight: bold;
+    border-right: 1px solid #000000;
+}
+
+.username-form input {
+    border: none;
+    flex: 1;
+    padding: 0.4rem 0.8rem;
+    outline: none;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.avatar-title {
+    margin-top: 1rem;
+    text-align: left;
+    align-items: flex-start;
+}
+
+.avatar-title h3 {
+    margin-left: -2.4rem; 
+}
+
+.avatar-grid {
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    gap: 10px;
+}
+
+.avatar {
+    width: 75px;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    padding: 0.5rem;
+    border: 1px solid #000000;
+    cursor: pointer;
+    background: #e6e6e6;
+}
+
+.avatar.selected {
+    border: 1px solid blue;
+}

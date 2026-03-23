@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Syzygy Production Lab: 404 NOT FOUND Exhibition</title>
+        <link rel="stylesheet" href="styles.css">
+        <link rel="icon" type="image/png" href="assets/limbo-favicon.png">
+    </head>
+    <body style="background-color: white; background-image: none !important;">
+        <header>
+            <a href="index.html">
+                <img src="assets/limbo-com.png" alt="Syzygy Production Lab Limbo Logo" width="300" style="padding-top: 1rem;">
+            </a>
+            <nav>
+                <ul>
+                    <li><button onclick="location.href='ticket-page.html'" style="background-color: #ff00ff;">Buy Tickets</button></li>
+                    <li><button onclick="window.open('https://www.instagram.com/sizigi.zip/', '_blank')">Syzygy Production Lab</button></li>
+                </ul>
+            </nav>
+
+            <h2 style="color: #0000ff; padding: 2rem 0 1.5rem 0;">Join Limbo.com</h2>
+                <form class="username-form ticket-width">
+                    <label for="name" style="font-size: 18.72px;">Username:</label>
+                    <input type="text" id="name" name="name" required placeholder="nerdypanda210">
+                </form>
+                
+                <div class="yellow-container ticket-width avatar-title">
+                    <h3>Choose an avatar</h3>
+                </div>
+
+                <div class="content-container ticket-width">
+                    <div class="avatar-grid">
+                        <img src="assets/fish/fish1-8.png" class="avatar" alt="Fish">
+                        <img src="assets/fish/fish2-8.png" class="avatar" alt="Fish">
+                        <img src="assets/fish/fish3-8.png" class="avatar" alt="Fish">
+                        <img src="assets/fish/fish4-8.png" class="avatar" alt="Fish">
+                        <img src="assets/fish/fish5-8.png" class="avatar" alt="Fish">
+                        <img src="assets/fish/fish6-8.png" class="avatar" alt="Fish">
+                        <img src="assets/fish/fish7-8.png" class="avatar" alt="Fish">
+                        <img src="assets/fish/fish8-8.png" class="avatar" alt="Fish">
+                        <img src="assets/fish/fish9-8.png" class="avatar" alt="Fish">
+                        <img src="assets/fish/fish10-8.png" class="avatar" alt="Fish">
+                    </div>
+                </div>
+
+                <button style="padding: 0.2rem 1.8rem; margin-top: 1.5rem; text-decoration: none; color: #000000;">Save</button>
+                <p style="font-weight:600; margin-top: 2rem;">To finish joining Limbo.com please purchase a ticket:</p>
+                <li><button onclick="window.open('https://square.link/u/xhyVZzk9?src=sheet', '_blank')" 
+                    style="padding: 0.2rem 1.8rem; margin-top: 0.8rem; text-decoration: none; color: #000000;">Buy ticket</button></li>
+
+        </header>
+    </body>
+    <footer id="footer">
+        © <span id="year"></span> Syzygy Production Lab
+    </footer>
+    <script>
+    const avatars = document.querySelectorAll('.avatar');
+
+    avatars.forEach(avatar => {
+        avatar.addEventListener('click', () => {
+            avatars.forEach(a => a.classList.remove('selected'));
+            avatar.classList.add('selected');
+        });
+        });
+        
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
