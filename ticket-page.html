@@ -48,7 +48,7 @@
             <button type="button" id="saveVisitor" style="padding: 0.2rem 1.8rem; margin-top: 1.5rem; text-decoration: none; color: #000000;">Save</button>
             <p style="font-weight:600; margin-top: 2rem;">To finish joining Limbo.com please purchase a ticket:</p>
             <ul class="ticket-page__cta-list">
-                <li><button onclick="window.open('https://square.link/u/xhyVZzk9?src=sheet', '_blank')"
+                <li><button id="buyTicket" onclick="window.open('https://square.link/u/xhyVZzk9?src=sheet', '_blank')"
                     style="padding: 0.2rem 1.8rem; margin-top: 0.8rem; text-decoration: none; color: #000000;">Buy ticket</button></li>
             </ul>
             <div id="saveThankYou" class="ticket-thank-you" aria-live="polite">
@@ -71,6 +71,14 @@
                 avatar.classList.add('selected');
             });
         });
+
+        const buyTicketBtn = document.getElementById('buyTicket');
+        const saveThankYouBlock = document.getElementById('saveThankYou');
+        if (buyTicketBtn && saveThankYouBlock) {
+            buyTicketBtn.addEventListener('click', function () {
+                saveThankYouBlock.classList.add('is-visible');
+            });
+        }
 
         document.getElementById('saveVisitor').addEventListener('click', () => {
             const nameInput = document.getElementById('name');
@@ -101,7 +109,6 @@
                 const block = document.getElementById('saveThankYou');
                 const note = document.getElementById('saveVisitorNote');
                 if (!block) return;
-                block.classList.add('is-visible');
                 if (note) {
                     if (!LimboAquarium.isRemote()) {
                         const d = typeof LimboAquarium.diagnose === 'function' ? LimboAquarium.diagnose() : null;
