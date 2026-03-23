@@ -95,6 +95,7 @@
                 return;
             }
 
+            const normalizedUsername = username.toLowerCase();
             const guest = {
                 username: username,
                 avatarSrc: selected.getAttribute('src') || '',
@@ -105,7 +106,16 @@
             const btn = document.getElementById('saveVisitor');
             if (btn) btn.disabled = true;
 
-            LimboAquarium.addGuest(guest).then(() => {
+            LimboAquarium.loadGuests().then((guests) => {
+                const exists = Array.isArray(guests) && guests.some((g) => {
+                    const existing = (g && g.username ? String(g.username) : '').trim().toLowerCase();
+                    return existing && existing === normalizedUsername;
+                });
+                if (exists) {
+                    throw new Error('Username taken. Please choose another one.');
+                }
+                return LimboAquarium.addGuest(guest);
+            }).then(() => {
                 const block = document.getElementById('saveThankYou');
                 const note = document.getElementById('saveVisitorNote');
                 if (!block) return;

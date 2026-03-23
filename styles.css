@@ -345,7 +345,7 @@ main img {
         transform: translateY(0);
     }
     to {
-        transform: translateY(-10px);
+        transform: translateY(-5px);
     }
 }
 
@@ -354,7 +354,7 @@ main img {
         transform: translateY(0);
     }
     to {
-        transform: translateY(-15px);
+        transform: translateY(-8px);
     }
 }
 
@@ -363,7 +363,7 @@ main img {
         transform: translateY(0);
     }
     to {
-        transform: translateY(-20px);
+        transform: translateY(-13px);
     }
 }
 

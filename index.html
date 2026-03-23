@@ -100,22 +100,83 @@
         <script src="js/aquarium-backend.js"></script>
         <script>
         (function () {
+            function clamp(v, min, max) {
+                return Math.max(min, Math.min(max, v));
+            }
+
+            function tooClose(candidate, placed, minDist) {
+                return placed.some(function (p) {
+                    var dx = candidate.leftPct - p.leftPct;
+                    var dy = candidate.topPct - p.topPct;
+                    return Math.sqrt(dx * dx + dy * dy) < minDist;
+                });
+            }
+
+            function buildSpacedPositions(guests) {
+                var bounds = { leftMin: 8, leftMax: 95, topMin: 12, topMax: 85 };
+                var placed = [];
+                var guestCount = guests.length || 1;
+                var hardDist = guestCount > 26 ? 12 : 13;
+
+                return guests.map(function (data, index) {
+                    var preferred = {
+                        leftPct: typeof data.leftPct === 'number' && !isNaN(data.leftPct)
+                            ? clamp(data.leftPct, bounds.leftMin, bounds.leftMax)
+                            : bounds.leftMin + Math.random() * (bounds.leftMax - bounds.leftMin),
+                        topPct: typeof data.topPct === 'number' && !isNaN(data.topPct)
+                            ? clamp(data.topPct, bounds.topMin, bounds.topMax)
+                            : bounds.topMin + Math.random() * (bounds.topMax - bounds.topMin)
+                    };
+
+                    if (!tooClose(preferred, placed, hardDist)) {
+                        placed.push(preferred);
+                        return preferred;
+                    }
+
+                    for (var i = 0; i < 90; i++) {
+                        var candidate = {
+                            leftPct: bounds.leftMin + Math.random() * (bounds.leftMax - bounds.leftMin),
+                            topPct: bounds.topMin + Math.random() * (bounds.topMax - bounds.topMin)
+                        };
+                        if (tooClose(candidate, placed, hardDist)) {
+                            continue;
+                        }
+
+                        if (!tooClose(candidate, placed, hardDist)) {
+                            placed.push(candidate);
+                            return candidate;
+                        }
+                    }
+
+                    var cols = 6;
+                    var col = index % cols;
+                    var row = Math.floor(index / cols);
+                    var colStep = (bounds.leftMax - bounds.leftMin) / Math.max(cols - 1, 1);
+                    var rowStep = 16;
+                    var gridPos = {
+                        leftPct: clamp(bounds.leftMin + col * colStep, bounds.leftMin, bounds.leftMax),
+                        topPct: clamp(bounds.topMin + row * rowStep, bounds.topMin, bounds.topMax)
+                    };
+                    placed.push(gridPos);
+                    return gridPos;
+                });
+            }
+
             function renderGuests(guests) {
                 if (!guests || !guests.length) return;
 
                 var container = document.querySelector('.aquarium-container');
                 if (!container) return;
 
-                guests.forEach(function (data) {
+                var positions = buildSpacedPositions(guests);
+
+                guests.forEach(function (data, index) {
                     var wrap = document.createElement('div');
                     wrap.className = 'aquarium-guest';
 
-                    var leftPct = typeof data.leftPct === 'number' && !isNaN(data.leftPct)
-                        ? data.leftPct
-                        : 12 + Math.random() * 76;
-                    var topPct = typeof data.topPct === 'number' && !isNaN(data.topPct)
-                        ? data.topPct
-                        : 14 + Math.random() * 72;
+                    var pos = positions[index] || { leftPct: 12 + Math.random() * 76, topPct: 14 + Math.random() * 72 };
+                    var leftPct = pos.leftPct;
+                    var topPct = pos.topPct;
                     wrap.style.left = leftPct + '%';
                     wrap.style.top = topPct + '%';
                     wrap.style.zIndex = String(1 + Math.floor(Math.random() * 20));
