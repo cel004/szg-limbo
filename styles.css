@@ -118,6 +118,11 @@ button {
     text-decoration: underline;
 }
 
+header nav button {
+    background-color: #efefef;
+    border: 1px solid #000000;
+}
+
 .exhibition-deadline {
     margin-top: 1.25rem !important;
     padding-top: 0 !important;
