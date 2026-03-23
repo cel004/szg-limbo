@@ -7,10 +7,10 @@
         <link rel="stylesheet" href="styles.css">
         <link rel="icon" type="image/png" href="assets/limbo-favicon.png">
     </head>
-    <body style="background-color: white; background-image: none !important;">
+    <body class="ticket-page" style="background-color: white; background-image: none !important;">
         <header>
             <a href="index.html">
-                <img src="assets/limbo-com.png" alt="Syzygy Production Lab Limbo Logo" width="300" style="padding-top: 1rem;">
+                <img class="header-logo" src="assets/limbo-com.png" alt="Syzygy Production Lab Limbo Logo" width="300" style="padding-top: 1rem;">
             </a>
             <nav>
                 <ul>
@@ -18,51 +18,110 @@
                     <li><button onclick="window.open('https://www.instagram.com/sizigi.zip/', '_blank')">Syzygy Production Lab</button></li>
                 </ul>
             </nav>
-
-            <h2 style="color: #0000ff; padding: 2rem 0 1.5rem 0;">Join Limbo.com</h2>
-                <form class="username-form ticket-width">
-                    <label for="name" style="font-size: 18.72px;">Username:</label>
-                    <input type="text" id="name" name="name" required placeholder="nerdypanda210">
-                </form>
-                
-                <div class="yellow-container ticket-width avatar-title">
-                    <h3>Choose an avatar</h3>
-                </div>
-
-                <div class="content-container ticket-width">
-                    <div class="avatar-grid">
-                        <img src="assets/fish/fish1-8.png" class="avatar" alt="Fish">
-                        <img src="assets/fish/fish2-8.png" class="avatar" alt="Fish">
-                        <img src="assets/fish/fish3-8.png" class="avatar" alt="Fish">
-                        <img src="assets/fish/fish4-8.png" class="avatar" alt="Fish">
-                        <img src="assets/fish/fish5-8.png" class="avatar" alt="Fish">
-                        <img src="assets/fish/fish6-8.png" class="avatar" alt="Fish">
-                        <img src="assets/fish/fish7-8.png" class="avatar" alt="Fish">
-                        <img src="assets/fish/fish8-8.png" class="avatar" alt="Fish">
-                        <img src="assets/fish/fish9-8.png" class="avatar" alt="Fish">
-                        <img src="assets/fish/fish10-8.png" class="avatar" alt="Fish">
-                    </div>
-                </div>
-
-                <button style="padding: 0.2rem 1.8rem; margin-top: 1.5rem; text-decoration: none; color: #000000;">Save</button>
-                <p style="font-weight:600; margin-top: 2rem;">To finish joining Limbo.com please purchase a ticket:</p>
-                <li><button onclick="window.open('https://square.link/u/xhyVZzk9?src=sheet', '_blank')" 
-                    style="padding: 0.2rem 1.8rem; margin-top: 0.8rem; text-decoration: none; color: #000000;">Buy ticket</button></li>
-
         </header>
-    </body>
-    <footer id="footer">
-        © <span id="year"></span> Syzygy Production Lab
-    </footer>
-    <script>
-    const avatars = document.querySelectorAll('.avatar');
+        <main class="ticket-page-main">
+            <h2 style="color: #0000ff; padding: 2rem 0 1.5rem 0;">Join Limbo.com</h2>
+            <form class="username-form ticket-width">
+                <label for="name" style="font-size: 18.72px;">Username:</label>
+                <input type="text" id="name" name="name" required placeholder="nerdypanda210">
+            </form>
 
-    avatars.forEach(avatar => {
-        avatar.addEventListener('click', () => {
-            avatars.forEach(a => a.classList.remove('selected'));
-            avatar.classList.add('selected');
+            <div class="yellow-container ticket-width avatar-title">
+                <h3>Choose an avatar</h3>
+            </div>
+
+            <div class="content-container ticket-width">
+                <div class="avatar-grid">
+                    <img src="assets/fish/fish1-8.png" class="avatar" alt="Fish">
+                    <img src="assets/fish/fish2-8.png" class="avatar" alt="Fish">
+                    <img src="assets/fish/fish3-8.png" class="avatar" alt="Fish">
+                    <img src="assets/fish/fish4-8.png" class="avatar" alt="Fish">
+                    <img src="assets/fish/fish5-8.png" class="avatar" alt="Fish">
+                    <img src="assets/fish/fish6-8.png" class="avatar" alt="Fish">
+                    <img src="assets/fish/fish7-8.png" class="avatar" alt="Fish">
+                    <img src="assets/fish/fish8-8.png" class="avatar" alt="Fish">
+                    <img src="assets/fish/fish9-8.png" class="avatar" alt="Fish">
+                    <img src="assets/fish/fish10-8.png" class="avatar" alt="Fish">
+                </div>
+            </div>
+
+            <button type="button" id="saveVisitor" style="padding: 0.2rem 1.8rem; margin-top: 1.5rem; text-decoration: none; color: #000000;">Save</button>
+            <p style="font-weight:600; margin-top: 2rem;">To finish joining Limbo.com please purchase a ticket:</p>
+            <ul class="ticket-page__cta-list">
+                <li><button onclick="window.open('https://square.link/u/xhyVZzk9?src=sheet', '_blank')"
+                    style="padding: 0.2rem 1.8rem; margin-top: 0.8rem; text-decoration: none; color: #000000;">Buy ticket</button></li>
+            </ul>
+            <div id="saveThankYou" class="ticket-thank-you" aria-live="polite">
+                <h2 class="ticket-thank-you__title">Thank you for joining Limbo.com</h2>
+                <a href="index.html" class="ticket-thank-you__cta">View Limbo</a>
+                <p class="ticket-thank-you__note" id="saveVisitorNote"></p>
+            </div>
+        </main>
+        <footer id="footer">
+            © <span id="year"></span> Syzygy Production Lab
+        </footer>
+        <script src="js/aquarium-config.js"></script>
+        <script src="js/aquarium-backend.js"></script>
+        <script>
+        const avatars = document.querySelectorAll('.avatar');
+
+        avatars.forEach(avatar => {
+            avatar.addEventListener('click', () => {
+                avatars.forEach(a => a.classList.remove('selected'));
+                avatar.classList.add('selected');
+            });
         });
+
+        document.getElementById('saveVisitor').addEventListener('click', () => {
+            const nameInput = document.getElementById('name');
+            const username = (nameInput && nameInput.value || '').trim();
+            const selected = document.querySelector('.avatar.selected');
+
+            if (!username) {
+                alert('Please enter a username.');
+                if (nameInput) nameInput.focus();
+                return;
+            }
+            if (!selected) {
+                alert('Please choose an avatar.');
+                return;
+            }
+
+            const guest = {
+                username: username,
+                avatarSrc: selected.getAttribute('src') || '',
+                leftPct: 12 + Math.random() * 76,
+                topPct: 14 + Math.random() * 72
+            };
+
+            const btn = document.getElementById('saveVisitor');
+            if (btn) btn.disabled = true;
+
+            LimboAquarium.addGuest(guest).then(() => {
+                const block = document.getElementById('saveThankYou');
+                const note = document.getElementById('saveVisitorNote');
+                if (!block) return;
+                block.classList.add('is-visible');
+                if (note) {
+                    if (!LimboAquarium.isRemote()) {
+                        const d = typeof LimboAquarium.diagnose === 'function' ? LimboAquarium.diagnose() : null;
+                        const hint = d && d.reasons && d.reasons.length ? d.reasons.join(' · ') : 'URL/key not detected.';
+                        note.innerHTML =
+                            'Saved on this device only — shared aquarium needs Supabase. ' +
+                            'Push <code>js/aquarium-config.js</code> or set <code>EMBEDDED_SUPABASE</code> in <code>js/aquarium-backend.js</code>. ' +
+                            '<span style="font-weight:700;">(' + hint + ')</span>';
+                    } else {
+                        note.textContent = '';
+                    }
+                }
+            }).catch((err) => {
+                alert(err && err.message ? err.message : 'Could not save. Try again.');
+            }).finally(() => {
+                if (btn) btn.disabled = false;
+            });
         });
-        
+
         document.getElementById("year").textContent = new Date().getFullYear();
-    </script>
+        </script>
+    </body>
+</html>

@@ -3,6 +3,12 @@
     src: url(assets\terminal-grotesque.ttf) format('truetype');
 }
 
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 html, body {
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -15,11 +21,25 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 
     color: #000000;
     font-family: 'Times New Roman', Times;
     margin: 0;
-    padding: 20px;    
+    padding: clamp(12px, 3vw, 20px);
+    overflow-x: hidden;
+}
+
+header,
+footer {
+    flex-shrink: 0;
+}
+
+main {
+    flex: 1 1 auto;
+    min-width: 0;
+    width: 100%;
 }
 
 p {
@@ -80,8 +100,10 @@ ul {
 
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
     padding-top: 1rem;
-    gap: 3rem;
+    gap: 16px;
 }
 
 li {
@@ -94,16 +116,119 @@ button {
     color: #0000ff;
     font-weight: 600;
     text-decoration: underline;
-    border: 1px solid #000000;
+}
+
+.exhibition-deadline {
+    margin-top: 1.25rem !important;
+    padding-top: 0 !important;
+    max-width: min(400px, 100%) !important;
+    font-size: 12px !important;
+    line-height: 1.25 !important;
+    font-weight: 700 !important;
+    color: #ff0000 !important;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
 }
 
 .container {
+    padding-top: 1rem;
+    width: 100%;
+    max-width: min(1200px, 100%);
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    --intro-stack-width: min(27rem, 100%);
+}
+
+.right-stack-top,
+.right-stack-bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-width: 0;
+}
+
+.main-columns {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     justify-content: center;
-    gap: 0.5rem;
-    padding-top: 1rem;
+    gap: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.left-container,
+.right-container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-width: 0;
+    flex: 1 1 0;
+}
+
+.left-container {
+    align-items: flex-start;
+    flex: 0 0 var(--intro-stack-width);
+    max-width: var(--intro-stack-width);
+}
+
+.right-container {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.left-container > .yellow-container,
+.left-container > .yellow-container + .content-container,
+.left-container > .magenta-container,
+.left-container > .magenta-container + .content-container {
+    width: var(--intro-stack-width);
+    max-width: 100%;
+    box-sizing: border-box;
+    align-self: flex-start;
+}
+
+.left-container > .yellow-container + .content-container h2,
+.left-container > .yellow-container + .content-container h3 {
+    text-align: left;
+    display: block;
+    width: 100%;
+    max-width: min(400px, 100%);
+    box-sizing: border-box;
+}
+
+.header-logo {
+    width: min(300px, 88vw);
+    height: auto;
+    display: block;
+}
+
+main img {
+    max-width: 100%;
+    height: auto;
+}
+
+.banner-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 8px;
+    align-items: start;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    padding: 0 0 0.4rem 0;
+    box-sizing: border-box;
+}
+
+.banner-row img {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    border: 1px solid #000000;
+    box-sizing: border-box;
 }
 
 .yellow-container,
@@ -141,16 +266,105 @@ button {
     align-items: flex-start;
 }
 
+.left-container .magenta-container + .content-container {
+    align-items: center;
+}
+
 .aquarium-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
     background-image: url('assets/aquarium.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-position: 0%;
 
-    padding: 11rem;
+    padding: clamp(2.5rem, 14vw, 11rem);
+    min-height: clamp(180px, 40vw, 320px);
+    width: 100%;
 
     animation: aquarium-animation 111s linear infinite alternate;
+
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+}
+
+.aquarium-guest {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.aquarium-guest-name {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #000000;
+    text-align: center;
+    line-height: 1.1;
+    background-color: #ffffff;
+    padding: 0.1rem 0.4rem;
+    border: 1px solid #000000;
+    max-width: 10rem;
+    word-wrap: break-word;
+}
+
+.aquarium-guest-fish {
+    width: 52px;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.aquarium-guest-bob {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    will-change: transform;
+}
+
+.aquarium-guest-bob--1 {
+    animation: fish-float-1 4s ease-in-out infinite alternate;
+}
+
+.aquarium-guest-bob--2 {
+    animation: fish-float-2 5s ease-in-out infinite alternate;
+}
+
+.aquarium-guest-bob--3 {
+    animation: fish-float-3 3.2s ease-in-out infinite alternate;
+}
+
+@keyframes fish-float-1 {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes fish-float-2 {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-15px);
+    }
+}
+
+@keyframes fish-float-3 {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-20px);
+    }
 }
 
 @keyframes aquarium-animation {
@@ -164,35 +378,35 @@ button {
 
 .yellow-container {
     background-color: #ffff00;
-    padding: 0.5rem 3.2rem;
+    padding: 0.5rem clamp(0.75rem, 4vw, 3.2rem);
+    box-sizing: border-box;
 }
 
 .cyan-container {
     background-color: #00ffff;
-    padding-right: 20rem;
+    padding-right: clamp(0.8rem, 4vw, 20rem);
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 .cyan-container h3,
 .magenta-container h3,
 .lime-container h3{
-    padding: 0.2rem 0.8rem;
+    padding: 0.2rem 0;
     text-align: left;
     width: 100%;
 }
 
 .magenta-container {
     background-color: #ff00ff;
-    margin-top: 0.4rem;
+    margin-top: 0.2rem;
 }
 
 .lime-container {
     background-color: #00ff00;
-    margin-top: 0.4rem;
-}
-
-.ticket-width {
-    width: 524px;
-    box-sizing: border-box;
+    margin-top: 0.2rem;
 }
 
 .username-form {
@@ -216,32 +430,295 @@ button {
     font-family: 'Times New Roman', Times, serif;
 }
 
-.avatar-title {
+.yellow-container.avatar-title {
     margin-top: 1rem;
-    text-align: left;
     align-items: flex-start;
+    align-self: center;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.4rem 0.8rem;
 }
 
-.avatar-title h3 {
-    margin-left: -2.4rem; 
+.yellow-container.avatar-title h3 {
+    text-align: left;
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    align-self: stretch;
 }
 
 .avatar-grid {
-    display: grid;
-    grid-template-columns: repeat(5, auto);
+    display: flex;
+    flex-wrap: wrap;
     gap: 10px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
 }
 
 .avatar {
-    width: 75px;
+    flex: 0 0 auto;
+    width: clamp(48px, 22vw, 75px);
     aspect-ratio: 1 / 1;
     object-fit: contain;
     padding: 0.5rem;
     border: 1px solid #000000;
     cursor: pointer;
     background: #e6e6e6;
+    box-sizing: border-box;
+}
+
+@media (min-width: 600px) {
+    .avatar-grid {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .avatar {
+        flex: unset;
+        width: 100%;
+        max-width: none;
+        min-width: 0;
+    }
 }
 
 .avatar.selected {
     border: 1px solid blue;
 }
+
+.ticket-thank-you {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1.5rem;
+    gap: 1rem;
+    width: 100%;
+    max-width: 32rem;
+}
+
+.ticket-thank-you.is-visible {
+    display: flex;
+}
+
+.ticket-thank-you__title {
+    color: #0000ff;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 0;
+    font-size: 1.35rem;
+    line-height: 1.25;
+}
+
+.ticket-thank-you__cta {
+    display: inline-block;
+    background-color: #ff0000;
+    color: #ffffff;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    text-decoration: none;
+    border: 1px solid #000000;
+    padding: 0.7rem 2.75rem;
+    border-radius: 0;
+    text-align: center;
+}
+
+.ticket-thank-you__cta:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.ticket-thank-you__note {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    max-width: 100%;
+    line-height: 1.35;
+    color: #000000;
+}
+
+.ticket-thank-you__note:empty {
+    display: none;
+}
+
+.ticket-width {
+    width: 100%;
+    max-width: min(100%, 32rem);
+    box-sizing: border-box;
+}
+
+.ticket-page-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.ticket-page__cta-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: min(100%, 32rem);
+}
+
+.content-container--artist-placeholder {
+    padding: clamp(2rem, 8vw, 10rem) clamp(0.75rem, 3vw, 1rem);
+}
+
+main .content-container > p {
+    max-width: min(400px, 100%);
+}
+
+@media (max-width: 899px) {
+    .yellow-container .scale-wrap {
+        transform: scaleX(1.15) scaleY(0.88);
+    }
+
+    .yellow-container h1 {
+        white-space: normal;
+        font-size: clamp(1.35rem, 6.5vw, 2.1rem);
+        text-align: center;
+    }
+
+    .lime-container {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .right-stack-bottom > .content-container {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 639px) {
+    .container {
+        --intro-stack-width: 100%;
+    }
+
+    .main-columns {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .right-container {
+        display: contents;
+    }
+
+    .right-stack-top {
+        order: 1;
+        width: 100%;
+    }
+
+    .left-container {
+        order: 2;
+        width: 100%;
+        max-width: 100%;
+        flex: 1 1 auto;
+    }
+
+    .right-stack-bottom {
+        order: 3;
+        width: 100%;
+    }
+
+    header ul {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .aquarium-guest-fish {
+        width: 32px;
+    }
+
+    .aquarium-guest-name {
+        font-size: 9px;
+        max-width: 6.5rem;
+    }
+}
+
+@media (max-width: 599px) {
+    .yellow-container .scale-wrap {
+        transform: none;
+    }
+
+    .yellow-container.avatar-title {
+        align-self: stretch;
+        padding: 0.5rem clamp(0.75rem, 4vw, 3.2rem);
+    }
+
+    .yellow-container.avatar-title h3 {
+        text-align: left;
+        padding: 0;
+    }
+
+    .ticket-page-main > .content-container.ticket-width {
+        padding: 0.2rem 0.2rem 0.5rem;
+    }
+
+    .avatar-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 6px;
+        width: 100%;
+    }
+
+    .avatar {
+        width: 100%;
+        max-width: none;
+        min-width: 0;
+        padding: 0.3rem;
+    }
+
+    .username-form {
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    .username-form label {
+        flex: 1 1 auto;
+        min-width: 0;
+        border-right: none;
+        border-bottom: 1px solid #000000;
+    }
+
+    .username-form input {
+        min-width: 0;
+        width: 100%;
+        flex: 1 1 100%;
+    }
+
+    .ticket-thank-you__title {
+        font-size: clamp(1rem, 4.5vw, 1.35rem);
+    }
+
+    .ticket-thank-you__cta {
+        font-size: 1.05rem;
+        padding: 0.65rem 1.75rem;
+        width: 100%;
+        max-width: 18rem;
+    }
+
+    .aquarium-guest-fish {
+        width: 28px;
+    }
+
+    .aquarium-guest-name {
+        font-size: 8px;
+        max-width: 6rem;
+    }
+}
+

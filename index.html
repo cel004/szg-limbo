@@ -10,7 +10,7 @@
     <body>
         <header>
             <a href="index.html">
-                <img src="assets/limbo-com.png" alt="Syzygy Production Lab Limbo Logo" width="300" style="padding-top: 1rem;">
+                <img class="header-logo" src="assets/limbo-com.png" alt="Syzygy Production Lab Limbo Logo" width="300" style="padding-top: 1rem;">
             </a>
             <nav>
                 <ul>
@@ -21,9 +21,9 @@
         </header>
         <main>
             <div class="container">
+                <div class="main-columns">
                 <div class="left-container">
 
-                    <!-- YELLOW CONTAINER -->
                     <div class="yellow-container">
                         <div class="scale-wrap">
                             <h1>404 NOT FOUND</h1>
@@ -42,7 +42,7 @@
                             I’ll see you on the playground, then on game; I’ll meet you in a place full of bliss. 
                             <span style="font-style: italic;">What will you find in limbo, in between dreams and reality?</span></p>
                         
-                            <p style="max-width: 400px; padding-top: 0.8rem;"">Inspired by flash game lobbies and early memories 
+                            <p style="max-width: 400px; padding-top: 0.8rem;">Inspired by flash game lobbies and early memories 
                                 of the internet, limbo.com is an offline exhibition exploring memory of a time when our 
                                 physical worlds had only begun extending into the metaphysical space of the internet. 
                                 In this limbo, we ask the audience if this past reality is only a dream now.</p>
@@ -70,37 +70,82 @@
                     </div>
                 </div>
                 <div class="right-container">
-                    <div class="container" style="padding: 0 0 0.4rem 0;">
-                        <img src="assets/red-banner.jpg" width="300" style="border: 1px solid #000000;">
-                        <img src="assets/candy-banner.jpg" width="300" style="border: 1px solid #000000;">
+                    <div class="right-stack-top">
+                        <div class="banner-row">
+                            <img src="assets/red-banner.jpg" alt="">
+                            <img src="assets/candy-banner.jpg" alt="">
+                        </div>
+                        <div class="cyan-container">
+                            <h3>Currently in Limbo...</h3>
+                        </div>
+                        <div class="aquarium-container">
+                        </div>
                     </div>
-
-                    <!-- CYAN CONTAINER -->
-                    <div class="cyan-container">
-                        <h3>Currently in Limbo...</h3>
+                    <div class="right-stack-bottom">
+                        <div class="lime-container">
+                            <h3>About the artwork and artists!</h3>
+                        </div>
+                        <div class="content-container content-container--artist-placeholder">
+                            <h1 style="width:100%; text-align:center; color: #999999;">Loading...</h1>
+                        </div>
                     </div>
-                    <!-- CONTENT CONTAINER -->
-                    <div class="aquarium-container">
-                    </div>
-
-                    <!-- LIME CONTAINER -->
-                    <div class="lime-container">
-                        <h3>About the artwork and artists!</h3>
-                    </div>
-                    <!-- CONTENT CONTAINER -->
-                     <div class="content-container" style="padding: 10rem">
-                        <h1 style="width:100%; text-align:center; color: #999999;">Loading...</h1>
-                     </div>
-                        
+                </div>
+                </div>
             </div>
         </main>
         <footer id="footer">
             © <span id="year"></span> Syzygy Production Lab
         </footer>
-        <main>
-        </main>
+        <script src="js/aquarium-config.js"></script>
+        <script src="js/aquarium-backend.js"></script>
         <script>
-              document.getElementById("year").textContent = new Date().getFullYear();
+        (function () {
+            function renderGuests(guests) {
+                if (!guests || !guests.length) return;
+
+                var container = document.querySelector('.aquarium-container');
+                if (!container) return;
+
+                guests.forEach(function (data) {
+                    var wrap = document.createElement('div');
+                    wrap.className = 'aquarium-guest';
+
+                    var leftPct = typeof data.leftPct === 'number' && !isNaN(data.leftPct)
+                        ? data.leftPct
+                        : 12 + Math.random() * 76;
+                    var topPct = typeof data.topPct === 'number' && !isNaN(data.topPct)
+                        ? data.topPct
+                        : 14 + Math.random() * 72;
+                    wrap.style.left = leftPct + '%';
+                    wrap.style.top = topPct + '%';
+                    wrap.style.zIndex = String(1 + Math.floor(Math.random() * 20));
+
+                    var bob = document.createElement('div');
+                    var animType = 1 + Math.floor(Math.random() * 3);
+                    bob.className = 'aquarium-guest-bob aquarium-guest-bob--' + animType;
+                    bob.style.animationDelay = (Math.random() * 4).toFixed(2) + 's';
+
+                    var label = document.createElement('span');
+                    label.className = 'aquarium-guest-name';
+                    label.textContent = data.username;
+
+                    var img = document.createElement('img');
+                    img.className = 'aquarium-guest-fish';
+                    img.src = data.avatarSrc;
+                    img.alt = '';
+
+                    bob.appendChild(label);
+                    bob.appendChild(img);
+                    wrap.appendChild(bob);
+                    container.appendChild(wrap);
+                });
+            }
+
+            LimboAquarium.loadGuests().then(renderGuests).catch(function () {
+            });
+        })();
+
+        document.getElementById("year").textContent = new Date().getFullYear();
         </script>
     </body>
 </html>
