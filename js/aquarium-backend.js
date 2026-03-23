@@ -4,10 +4,6 @@
 
     var AVATAR_PATH_RE = /^assets\/fish\/fish(10|[1-9])-8\.png$/;
 
-    /**
-     * Fallback if js/aquarium-config.js fails to load on the live site (404, wrong path, or empty git copy).
-     * Paste the same url + anonKey here, or fix the script path / push aquarium-config.js.
-     */
     var EMBEDDED_SUPABASE = {
         url: '',
         anonKey: ''
@@ -53,7 +49,6 @@
         return g && typeof g.username === 'string' && typeof g.avatarSrc === 'string';
     }
 
-    /** Browser may expose full URL; DB expects paths like assets/fish/fish1-8.png */
     function normalizeAvatarSrc(src) {
         if (!src || typeof src !== 'string') return '';
         var s = src.trim();

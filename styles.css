@@ -288,7 +288,7 @@ main img {
 
     align-items: center;
     justify-content: center;
-    overflow: visible;
+    overflow: hidden;
 }
 
 .aquarium-guest {
