@@ -285,8 +285,8 @@ main img {
     background-repeat: no-repeat;
     background-position: 0%;
 
-    padding: clamp(2.5rem, 14vw, 11rem);
-    min-height: clamp(180px, 40vw, 320px);
+    padding: clamp(4rem, 18vw, 14rem);
+    min-height: clamp(180px, 60vw, 380px);
     width: 100%;
 
     animation: aquarium-animation 111s linear infinite alternate;
