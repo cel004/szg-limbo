@@ -80,6 +80,48 @@
             });
         }
 
+        function isTooClose(candidate, existing, minDist) {
+            return existing.some((other) => {
+                if (!other || typeof other.leftPct !== 'number' || typeof other.topPct !== 'number') return false;
+                var dx = candidate.leftPct - other.leftPct;
+                var dy = candidate.topPct - other.topPct;
+                return Math.sqrt(dx * dx + dy * dy) < minDist;
+            });
+        }
+
+        function getRandomPoint(bounds) {
+            return {
+                leftPct: bounds.leftMin + Math.random() * (bounds.leftMax - bounds.leftMin),
+                topPct: bounds.topMin + Math.random() * (bounds.topMax - bounds.topMin)
+            };
+        }
+
+        function findSpawnPosition(existingGuests, bounds, minDist, maxAttempts) {
+            var existing = Array.isArray(existingGuests) ? existingGuests : [];
+            for (var i = 0; i < maxAttempts; i++) {
+                var candidate = getRandomPoint(bounds);
+                if (!isTooClose(candidate, existing, minDist)) {
+                    return candidate;
+                }
+            }
+            // Fallback: use a sparse grid scan if random retries fail
+            var cols = 8;
+            var rows = 6;
+            for (var r = 0; r < rows; r++) {
+                for (var c = 0; c < cols; c++) {
+                    var candidate = {
+                        leftPct: bounds.leftMin + (bounds.leftMax - bounds.leftMin) * (c / Math.max(cols - 1, 1)),
+                        topPct: bounds.topMin + (bounds.topMax - bounds.topMin) * (r / Math.max(rows - 1, 1))
+                    };
+                    if (!isTooClose(candidate, existing, minDist)) {
+                        return candidate;
+                    }
+                }
+            }
+            // Ultimate fallback: any random point
+            return getRandomPoint(bounds);
+        }
+
         document.getElementById('saveVisitor').addEventListener('click', () => {
             const nameInput = document.getElementById('name');
             const username = (nameInput && nameInput.value || '').trim();
@@ -96,12 +138,6 @@
             }
 
             const normalizedUsername = username.toLowerCase();
-            const guest = {
-                username: username,
-                avatarSrc: selected.getAttribute('src') || '',
-                leftPct: 12 + Math.random() * 76,
-                topPct: 14 + Math.random() * 72
-            };
 
             const btn = document.getElementById('saveVisitor');
             if (btn) btn.disabled = true;
@@ -114,6 +150,21 @@
                 if (exists) {
                     throw new Error('Username taken. Please choose another one.');
                 }
+
+                const spawn = findSpawnPosition(
+                    guests,
+                    { leftMin: 12, leftMax: 88, topMin: 14, topMax: 86 },
+                    12,
+                    150
+                );
+
+                const guest = {
+                    username: username,
+                    avatarSrc: selected.getAttribute('src') || '',
+                    leftPct: spawn.leftPct,
+                    topPct: spawn.topPct
+                };
+
                 return LimboAquarium.addGuest(guest);
             }).then(() => {
                 const block = document.getElementById('saveThankYou');

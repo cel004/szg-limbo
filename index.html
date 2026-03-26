@@ -116,7 +116,8 @@
                 var bounds = { leftMin: 4.5, leftMax: 95, topMin: 9, topMax: 90 };
                 var placed = [];
                 var guestCount = guests.length || 1;
-                var hardDist = guestCount > 26 ? 12 : 13;
+                var hardDist =
+                    guestCount > 120 ? 7 : guestCount > 60 ? 9 : guestCount > 26 ? 11 : 13;
 
                 return guests.map(function (data, index) {
                     var preferred = {
@@ -151,12 +152,31 @@
                     var cols = 6;
                     var col = index % cols;
                     var row = Math.floor(index / cols);
+                    var rows = Math.ceil(guestCount / cols);
                     var colStep = (bounds.leftMax - bounds.leftMin) / Math.max(cols - 1, 1);
-                    var rowStep = 16;
+                    var rowStep = (bounds.topMax - bounds.topMin) / Math.max(rows - 1, 1);
+
                     var gridPos = {
-                        leftPct: clamp(bounds.leftMin + col * colStep, bounds.leftMin, bounds.leftMax),
-                        topPct: clamp(bounds.topMin + row * rowStep, bounds.topMin, bounds.topMax)
+                        leftPct: bounds.leftMin + col * colStep,
+                        topPct: bounds.topMin + row * rowStep
                     };
+
+                    if (!tooClose(gridPos, placed, hardDist)) {
+                        placed.push(gridPos);
+                        return gridPos;
+                    }
+
+                    for (var j = 0; j < 50; j++) {
+                        var randomPos = {
+                            leftPct: bounds.leftMin + Math.random() * (bounds.leftMax - bounds.leftMin),
+                            topPct: bounds.topMin + Math.random() * (bounds.topMax - bounds.topMin)
+                        };
+                        if (!tooClose(randomPos, placed, hardDist)) {
+                            placed.push(randomPos);
+                            return randomPos;
+                        }
+                    }
+
                     placed.push(gridPos);
                     return gridPos;
                 });
