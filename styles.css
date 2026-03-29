@@ -414,6 +414,92 @@ main img {
     margin-top: 0.2rem;
 }
 
+.right-stack-bottom .lime-container h3,
+.right-stack-bottom .content-container > h3 {
+    text-align: center;
+}
+
+.right-stack-bottom .content-container {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.right-stack-bottom .content-container > h3 {
+    align-self: stretch;
+    width: 100%;
+    box-sizing: border-box;
+    padding-left: 0.6rem;
+    padding-right: 0.6rem;
+}
+
+.blinkies-grid {
+    display: flex;
+    flex-wrap: wrap;
+    
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.blinkies-grid a {
+    display: block;
+    line-height: 0;
+    border: 1px solid #000000;
+    background: #ffffff;
+    box-sizing: border-box;
+}
+
+.blinkies-grid a:hover {
+    outline: 2px solid #0000ff;
+    outline-offset: 1px;
+}
+
+.blinkies-grid img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.right-stack-bottom .blinkies-grid {
+    align-items: stretch;
+    justify-content: flex-start;
+}
+
+.right-stack-bottom .blinkies-grid a {
+    width: 100%;
+    flex: 1 1 100%;
+}
+
+.right-stack-bottom .blinkies-grid img {
+    width: 100%;
+    max-width: none;
+    height: auto;
+    image-rendering: pixelated;
+}
+
+.blinkies-credit {
+    text-align: center;
+    padding: 0 0.6rem;
+    margin: 0.8rem 0 0;
+    width: 100%;
+    box-sizing: border-box;
+    align-self: stretch;
+    font-weight: inherit;
+}
+
+.blinkies-credit a {
+    color: #0000ff;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.blinkies-credit a:hover {
+    color: #0000ff;
+}
+
 .username-form {
     display: flex;
     align-items: center;
@@ -574,10 +660,6 @@ main img {
     align-items: center;
     width: 100%;
     max-width: min(100%, 32rem);
-}
-
-.content-container--artist-placeholder {
-    padding: clamp(2rem, 8vw, 10rem) clamp(0.75rem, 3vw, 1rem);
 }
 
 main .content-container > p {
