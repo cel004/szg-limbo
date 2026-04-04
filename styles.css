@@ -285,8 +285,8 @@ main img {
     background-repeat: no-repeat;
     background-position: 0%;
 
-    padding: clamp(4rem, 18vw, 14rem);
-    min-height: clamp(180px, 60vw, 380px);
+    padding: clamp(5.5rem, 24vw, 18rem);
+    min-height: clamp(260px, 72vw, 520px);
     width: 100%;
 
     animation: aquarium-animation 111s linear infinite alternate;
@@ -306,7 +306,7 @@ main img {
 
 .aquarium-guest-name {
     font-family: 'Times New Roman', Times, serif;
-    font-size: 12px;
+    font-size: 10px;
     font-weight: 600;
     color: #000000;
     text-align: center;
@@ -319,7 +319,7 @@ main img {
 }
 
 .aquarium-guest-fish {
-    width: 52px;
+    width: 44px;
     height: auto;
     object-fit: contain;
     display: block;
@@ -814,12 +814,13 @@ main .content-container > p {
     }
 
     .aquarium-guest-fish {
-        width: 32px;
+        width: 22px;
     }
 
     .aquarium-guest-name {
-        font-size: 9px;
-        max-width: 6.5rem;
+        font-size: 7px;
+        max-width: 5.5rem;
+        padding: 0.06rem 0.28rem;
     }
 }
 
@@ -886,12 +887,26 @@ main .content-container > p {
     }
 
     .aquarium-guest-fish {
-        width: 28px;
+        width: 18px;
     }
 
     .aquarium-guest-name {
-        font-size: 8px;
-        max-width: 6rem;
+        font-size: 6px;
+        max-width: 4.75rem;
+        padding: 0.05rem 0.22rem;
+        line-height: 1.05;
+    }
+}
+
+@media (max-width: 399px) {
+    .aquarium-guest-fish {
+        width: 16px;
+    }
+
+    .aquarium-guest-name {
+        font-size: 5.5px;
+        max-width: 4.25rem;
+        padding: 0.04rem 0.18rem;
     }
 }
 

@@ -133,8 +133,28 @@
         <script src="js/aquarium-backend.js"></script>
         <script>
         (function () {
+            var aquariumGuestsCache = null;
+            var aquariumResizeAttached = false;
+
             function clamp(v, min, max) {
                 return Math.max(min, Math.min(max, v));
+            }
+
+            function getSpawnBounds(container) {
+                var fallback = { leftMin: 2, leftMax: 98, topMin: 3, topMax: 97 };
+                if (!container || container.clientWidth < 48 || container.clientHeight < 48) {
+                    return fallback;
+                }
+                var w = container.clientWidth;
+                var h = container.clientHeight;
+                var insetXPct = clamp((20 / w) * 100, 1.2, 10);
+                var insetYPct = clamp((28 / h) * 100, 1.5, 12);
+                return {
+                    leftMin: insetXPct,
+                    leftMax: 100 - insetXPct,
+                    topMin: insetYPct,
+                    topMax: 100 - insetYPct
+                };
             }
 
             function tooClose(candidate, placed, minDist) {
@@ -145,8 +165,8 @@
                 });
             }
 
-            function buildSpacedPositions(guests) {
-                var bounds = { leftMin: 4.5, leftMax: 95, topMin: 9, topMax: 90 };
+            function buildSpacedPositions(guests, container) {
+                var bounds = getSpawnBounds(container);
                 var placed = [];
                 var guestCount = guests.length || 1;
                 var hardDist =
@@ -221,13 +241,26 @@
                 var container = document.querySelector('.aquarium-container');
                 if (!container) return;
 
-                var positions = buildSpacedPositions(guests);
+                aquariumGuestsCache = guests;
+
+                container.querySelectorAll('.aquarium-guest').forEach(function (el) {
+                    el.remove();
+                });
+
+                var positions = buildSpacedPositions(guests, container);
+                var bounds = getSpawnBounds(container);
 
                 guests.forEach(function (data, index) {
                     var wrap = document.createElement('div');
                     wrap.className = 'aquarium-guest';
 
-                    var pos = positions[index] || { leftPct: 12 + Math.random() * 76, topPct: 14 + Math.random() * 72 };
+                    var pos = positions[index];
+                    if (!pos) {
+                        pos = {
+                            leftPct: bounds.leftMin + Math.random() * (bounds.leftMax - bounds.leftMin),
+                            topPct: bounds.topMin + Math.random() * (bounds.topMax - bounds.topMin)
+                        };
+                    }
                     var leftPct = pos.leftPct;
                     var topPct = pos.topPct;
                     wrap.style.left = leftPct + '%';
@@ -253,6 +286,20 @@
                     wrap.appendChild(bob);
                     container.appendChild(wrap);
                 });
+
+                if (!aquariumResizeAttached && window.ResizeObserver) {
+                    aquariumResizeAttached = true;
+                    var resizeTimer;
+                    var ro = new ResizeObserver(function () {
+                        clearTimeout(resizeTimer);
+                        resizeTimer = setTimeout(function () {
+                            if (aquariumGuestsCache && aquariumGuestsCache.length) {
+                                renderGuests(aquariumGuestsCache);
+                            }
+                        }, 120);
+                    });
+                    ro.observe(container);
+                }
             }
 
             LimboAquarium.loadGuests().then(renderGuests).catch(function () {
