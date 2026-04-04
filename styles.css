@@ -662,6 +662,92 @@ main img {
     max-width: min(100%, 32rem);
 }
 
+body.artist-spotlight-page {
+    background-color: #ffffff;
+    background-image: none !important;
+}
+
+.artist-spotlight-main {
+    width: 100%;
+    max-width: min(40rem, 100%);
+    margin: 0 auto;
+    padding: 1.25rem clamp(12px, 4vw, 24px) 2.5rem;
+    text-align: left;
+    font-family: 'Times New Roman', Times, serif;
+    box-sizing: border-box;
+}
+
+.artist-spotlight__name {
+    color: #0000ff;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: clamp(1.85rem, 5.5vw, 2.65rem);
+    font-weight: 700;
+    line-height: 1.1;
+    text-align: left;
+    display: block;
+    width: 100%;
+    margin: 0 0 0.4rem;
+    padding: 0;
+}
+
+.artist-spotlight__work {
+    color: #0000ff;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: clamp(1.05rem, 2.6vw, 1.3rem);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.25;
+    text-align: left;
+    margin: 0 0 0.85rem;
+    padding: 0;
+}
+
+.artist-spotlight__meta {
+    color: #000000;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 15px;
+    line-height: 1.35;
+    text-align: left;
+    margin: 0 0 0.2rem;
+    padding: 0;
+}
+
+.artist-spotlight__body {
+    color: #000000;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 15px;
+    line-height: 1.5;
+    text-align: left;
+    margin: 0 0 0.85rem;
+    padding: 0;
+    max-width: 100%;
+}
+
+.artist-spotlight__meta + .artist-spotlight__body,
+.artist-spotlight__work + .artist-spotlight__body {
+    margin-top: 1rem;
+}
+
+.artist-spotlight__body + .artist-spotlight__body {
+    margin-top: 0.85rem;
+}
+
+.artist-spotlight__follow {
+    color: #000000;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 15px;
+    line-height: 1.35;
+    text-align: left;
+    margin: 0.5rem 0 0;
+    padding: 0;
+}
+
+.artist-spotlight__follow a {
+    color: #0000ff;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
 main .content-container > p {
     max-width: min(400px, 100%);
 }

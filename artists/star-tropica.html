@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Star Tropica — Syzygy Production Lab: 404 NOT FOUND Exhibition</title>
+        <link rel="stylesheet" href="../styles.css">
+        <link rel="icon" type="image/png" href="../assets/limbo-favicon.png">
+    </head>
+    <body class="artist-spotlight-page">
+        <header>
+            <a href="../index.html">
+                <img class="header-logo" src="../assets/limbo-com.png" alt="Syzygy Production Lab Limbo Logo" width="300" style="padding-top: 1rem;">
+            </a>
+            <nav>
+                <ul>
+                    <li><button onclick="location.href='../ticket-page.html'">Buy Tickets</button></li>
+                    <li><button onclick="window.open('https://www.instagram.com/sizigi.zip/', '_blank')">Syzygy Production Lab</button></li>
+                </ul>
+            </nav>
+        </header>
+        <main class="artist-spotlight-main">
+            <h1 class="artist-spotlight__name" style="margin-top: 2rem; margin-bottom: 0;">Star Tropica</h1>
+            <p class="artist-spotlight__work">Untitled collection</p>
+            <p class="artist-spotlight__meta">2026</p>
+            <p class="artist-spotlight__meta">Scans of drawings and paintings on photo prints</p>
+            <p class="artist-spotlight__body">Paintings made from a mix of my childhood memories and my current feelings about them.</p>
+            <p class="artist-spotlight__follow">Follow Star Tropica on Instagram <a href="https://www.instagram.com/startropica/" target="_blank" rel="noopener noreferrer">@startropica</a></p>
+        </main>
+        <footer id="footer">
+            © <span id="year"></span> Syzygy Production Lab
+        </footer>
+        <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+        </script>
+    </body>
+</html>

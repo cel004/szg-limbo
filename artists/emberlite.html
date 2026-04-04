@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>emberlite — Syzygy Production Lab: 404 NOT FOUND Exhibition</title>
+        <link rel="stylesheet" href="../styles.css">
+        <link rel="icon" type="image/png" href="../assets/limbo-favicon.png">
+    </head>
+    <body class="artist-spotlight-page">
+        <header>
+            <a href="../index.html">
+                <img class="header-logo" src="../assets/limbo-com.png" alt="Syzygy Production Lab Limbo Logo" width="300" style="padding-top: 1rem;">
+            </a>
+            <nav>
+                <ul>
+                    <li><button onclick="location.href='../ticket-page.html'">Buy Tickets</button></li>
+                    <li><button onclick="window.open('https://www.instagram.com/sizigi.zip/', '_blank')">Syzygy Production Lab</button></li>
+                </ul>
+            </nav>
+        </header>
+        <main class="artist-spotlight-main">
+            <h1 class="artist-spotlight__name" style="margin-top: 2rem; margin-bottom: 0;">emberlite</h1>
+            <p class="artist-spotlight__work">Toronto if it was an early 2000s video game</p>
+            <p class="artist-spotlight__meta">2026</p>
+            <p class="artist-spotlight__meta">3D rendered video</p>
+            <p class="artist-spotlight__body">The streets of Toronto reimagined as a low poly, early 2000s video game. Liminal yet cozy and you might never want to leave.</p>
+            <p class="artist-spotlight__follow">Follow emberlite on Instagram <a href="https://www.instagram.com/ember.lite/" target="_blank" rel="noopener noreferrer">@ember.lite</a></p>
+        </main>
+        <footer id="footer">
+            © <span id="year"></span> Syzygy Production Lab
+        </footer>
+        <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+        </script>
+    </body>
+</html>
